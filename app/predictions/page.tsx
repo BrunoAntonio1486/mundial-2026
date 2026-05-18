@@ -271,7 +271,13 @@ export default function PredictionsPage() {
               }}
             >
 
-              <h2 style={{ marginBottom: 10 }}>
+              <h2
+                  style={{
+                  marginBottom: 10,
+                  color: '#000',
+                  fontWeight: 'bold'
+                  }}
+              >
                 {match.team_home} vs {match.team_away}
               </h2>
 
