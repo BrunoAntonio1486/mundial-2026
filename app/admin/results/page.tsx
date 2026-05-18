@@ -225,13 +225,18 @@ const saveResult = async (
                     )
                   }
                   style={{
-                    width: 80,
-                    padding: 14,
-                    borderRadius: 12,
-                    border: '1px solid #cbd5e1',
-                    fontSize: 20,
-                    textAlign: 'center'
-                  }}
+  width: 70,
+  padding: 10,
+  borderRadius: 10,
+  border: '1px solid #cbd5e1',
+  fontSize: 18,
+  textAlign: 'center',
+  color: '#000',
+  background: 'white',
+  fontWeight: 'bold',
+  WebkitTextFillColor: '#000',
+  opacity: 1
+}}
                 />
 
                 <span
@@ -255,13 +260,18 @@ const saveResult = async (
                     )
                   }
                   style={{
-                    width: 80,
-                    padding: 14,
-                    borderRadius: 12,
-                    border: '1px solid #cbd5e1',
-                    fontSize: 20,
-                    textAlign: 'center'
-                  }}
+  width: 70,
+  padding: 10,
+  borderRadius: 10,
+  border: '1px solid #cbd5e1',
+  fontSize: 18,
+  textAlign: 'center',
+  color: '#000',
+  background: 'white',
+  fontWeight: 'bold',
+  WebkitTextFillColor: '#000',
+  opacity: 1
+}}
                 />
 
               </div>
