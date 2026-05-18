@@ -209,16 +209,19 @@ export default function DashboardPage() {
 
               <div
                 style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 15,
-                  background: '#e2e8f0',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontSize: 24,
-                  fontWeight: 'bold'
-                }}
+    width: 60,
+    height: 60,
+    borderRadius: 15,
+    background: 'white',
+    border: '2px solid #cbd5e1',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    opacity: 1
+  }}
               >
                 {
                   match.home_score !== null
@@ -237,17 +240,20 @@ export default function DashboardPage() {
               </span>
 
               <div
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 15,
-                  background: '#e2e8f0',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontSize: 24,
-                  fontWeight: 'bold'
-                }}
+                  style={{
+    width: 60,
+    height: 60,
+    borderRadius: 15,
+    background: 'white',
+    border: '2px solid #cbd5e1',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    opacity: 1
+  }}
               >
                 {
                   match.away_score !== null
