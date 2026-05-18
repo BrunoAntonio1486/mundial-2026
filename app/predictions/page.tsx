@@ -301,12 +301,17 @@ export default function PredictionsPage() {
                   disabled={locked || !editable}
                   placeholder="0"
                   style={{
-                    width: 70,
-                    padding: 10,
-                    borderRadius: 10,
-                    border: '1px solid #cbd5e1',
-                    fontSize: 18,
-                    textAlign: 'center'
+                     width: 70,
+                     padding: 10,
+                     borderRadius: 10,
+                     border: '1px solid #cbd5e1',
+                     fontSize: 18,
+                     textAlign: 'center',
+                     color: '#000',
+                     background: 'white',
+                     fontWeight: 'bold',
+                     WebkitTextFillColor: '#000',
+                     opacity: 1
                   }}
                   onChange={(e) =>
                     setPredictions({
