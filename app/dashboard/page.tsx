@@ -8,6 +8,7 @@ export default function DashboardPage() {
 
   const [matches, setMatches] = useState<any[]>([])
   const [username, setUsername] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -51,7 +52,11 @@ export default function DashboardPage() {
     }
 
     if (data) {
-      setUsername(data.username)
+      setUsername(data.username)      
+    }
+
+    if (data.username === 'Bruno') {
+      setIsAdmin(true)
     }
   }
 
@@ -155,6 +160,24 @@ export default function DashboardPage() {
             >
               🏆 Ranking
             </Link>
+
+            {isAdmin && (
+
+  <Link
+    href="/admin/results"
+    style={{
+      textDecoration: 'none',
+      background: '#dc2626',
+      color: 'white',
+      padding: '10px 16px',
+      borderRadius: 10,
+      fontWeight: 'bold'
+    }}
+  >
+    🛠 Admin
+  </Link>
+
+)}
 
           </div>
 
