@@ -10,13 +10,8 @@ type RankingUser = {
   points: number
 }
 
-type Profile = {
-  id: string
-  username: string
-}
-
 type Prediction = {
-  user_id: string
+  username: string
   points: number
 }
 
@@ -34,63 +29,44 @@ export default function RankingPage() {
 
   const fetchRanking = async () => {
 
-    // traer usuarios
     const {
-      data: profiles,
-      error: profilesError
-    } = await supabase
-      .from('profiles')
-      .select('id, username')
-
-    if (profilesError) {
-      alert(profilesError.message)
-      setLoading(false)
-      return
-    }
-
-    // traer puntos
-    const {
-      data: predictions,
-      error: predictionsError
+      data,
+      error
     } = await supabase
       .from('predictions')
-      .select('user_id, points')
+      .select('username, points')
 
-    if (predictionsError) {
-      alert(predictionsError.message)
+    if (error) {
+      alert(error.message)
       setLoading(false)
       return
     }
 
     const totals: Record<string, number> = {}
 
-    // inicializar usuarios
-    profiles?.forEach((profile: Profile) => {
-      totals[profile.id] = 0
+    data?.forEach((prediction: Prediction) => {
+
+      const username =
+        prediction.username || 'Usuario'
+
+      const points =
+        Number(prediction.points) || 0
+
+      if (!totals[username]) {
+        totals[username] = 0
+      }
+
+      totals[username] += points
     })
 
-    // sumar puntos
-    predictions?.forEach((prediction: Prediction) => {
-
-      const current =
-        totals[prediction.user_id] || 0
-
-      totals[prediction.user_id] =
-        current + (Number(prediction.points) || 0)
-    })
-
-    // crear ranking
     const rankingArray: RankingUser[] =
-      profiles?.map((profile: Profile) => ({
-        id: profile.id,
-        username: profile.username,
-        points: totals[profile.id] || 0
-      })) || []
-
-    // ordenar
-    rankingArray.sort(
-      (a, b) => b.points - a.points
-    )
+      Object.entries(totals)
+        .map(([username, points]) => ({
+          id: username,
+          username,
+          points
+        }))
+        .sort((a, b) => b.points - a.points)
 
     setRanking(rankingArray)
     setLoading(false)
