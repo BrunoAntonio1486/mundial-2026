@@ -5,7 +5,13 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import LogoutButton from '../components/LogoutButton'
 
+const predictionDeadline =
+  new Date('2026-05-19T00:00:00')
+
 export default function PredictionsPage() {
+
+  const isLocked =
+  new Date() >= predictionDeadline
 
   const [matches, setMatches] = useState<any[]>([])
   const [username, setUsername] = useState('')
@@ -377,46 +383,61 @@ export default function PredictionsPage() {
                 {!locked && !editable && (
 
                   <button
-                    onClick={() =>
-                      setEditMode({
-                        ...editMode,
-                        [match.id]: true
-                      })
-                    }
-                    style={{
-                      background: '#f59e0b',
-                      color: 'white',
-                      border: 'none',
-                      padding: '12px 18px',
-                      borderRadius: 10,
-                      fontWeight: 'bold',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Modificar
-                  </button>
+  onClick={() =>
+    setEditMode({
+      ...editMode,
+      [match.id]: true
+    })
+  }
+  disabled={isLocked}
+  style={{
+    background: isLocked
+      ? '#64748b'
+      : '#f59e0b',
+    color: 'white',
+    border: 'none',
+    padding: '12px 18px',
+    borderRadius: 10,
+    fontWeight: 'bold',
+    cursor: isLocked
+      ? 'not-allowed'
+      : 'pointer',
+    opacity: isLocked ? 0.7 : 1
+  }}
+>
+  {isLocked
+    ? 'Predicción cerrada'
+    : 'Modificar'}
+</button>
 
                 )}
 
                 {!locked && editable && (
 
                   <button
-                    onClick={() =>
-                      savePrediction(match.id)
-                    }
-                    disabled={loading}
-                    style={{
-                      background: '#2563eb',
-                      color: 'white',
-                      border: 'none',
-                      padding: '12px 18px',
-                      borderRadius: 10,
-                      fontWeight: 'bold',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Guardar
-                  </button>
+  onClick={() =>
+    savePrediction(match.id)
+  }
+  disabled={loading || isLocked}
+  style={{
+    background: isLocked
+      ? '#64748b'
+      : '#2563eb',
+    color: 'white',
+    border: 'none',
+    padding: '12px 18px',
+    borderRadius: 10,
+    fontWeight: 'bold',
+    cursor: isLocked
+      ? 'not-allowed'
+      : 'pointer',
+    opacity: isLocked ? 0.7 : 1
+  }}
+>
+  {isLocked
+    ? 'Predicción cerrada'
+    : 'Guardar'}
+</button>
 
                 )}
 
