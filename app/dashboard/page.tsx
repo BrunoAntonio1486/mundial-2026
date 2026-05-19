@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import LogoutButton from '../components/LogoutButton'
 
 export default function DashboardPage() {
 
@@ -160,6 +161,8 @@ export default function DashboardPage() {
             >
               🏆 Ranking
             </Link>
+            
+            <LogoutButton />
 
             {isAdmin && (
 
@@ -176,6 +179,7 @@ export default function DashboardPage() {
   >
     🛠 Admin
   </Link>
+  
 
 )}
 

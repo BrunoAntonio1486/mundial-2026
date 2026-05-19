@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import LogoutButton from '../components/LogoutButton'
 
 type RankingUser = {
   id: string
@@ -194,6 +195,8 @@ export default function RankingPage() {
             >
               🏆 Ranking
             </Link>
+
+            <LogoutButton />
 
           </div>
 

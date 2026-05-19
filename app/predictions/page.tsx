@@ -3,6 +3,7 @@
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import LogoutButton from '../components/LogoutButton'
 
 export default function PredictionsPage() {
 
@@ -239,6 +240,8 @@ export default function PredictionsPage() {
             >
               🏆 Ranking
             </Link>
+
+            <LogoutButton />
 
           </div>
 
