@@ -26,7 +26,12 @@ export default function RankingPage() {
 
     const { data, error } = await supabase
       .from('predictions')
-      .select('points, username')
+      .select(`
+        points,
+        profiles (
+          username
+        )
+      `)
 
     if (error) {
       alert(error.message)
@@ -36,10 +41,10 @@ export default function RankingPage() {
 
     const totals: Record<string, number> = {}
 
-    data?.forEach((prediction) => {
+    data?.forEach((prediction: any) => {
 
       const username =
-        prediction.username || 'Usuario'
+        prediction.profiles?.username || 'Usuario'
 
       const points =
         Number(prediction.points) || 0
