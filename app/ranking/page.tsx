@@ -24,23 +24,42 @@ export default function RankingPage() {
 
   const fetchRanking = async () => {
 
-    const { data, error } =
-      await supabase
-        .from('profiles')
-        .select('id, username, points')
-        .order('points', {
-          ascending: false
-        })
+const fetchRanking = async () => {
 
-    if (error) {
-      alert(error.message)
-      setLoading(false)
-      return
+  const { data, error } = await supabase
+    .from('predictions')
+    .select('points, username')
+
+  if (error) {
+    alert(error.message)
+    setLoading(false)
+    return
+  }
+
+  const totals: Record<string, number> = {}
+
+  data?.forEach((prediction) => {
+
+    const username = prediction.username || 'Usuario'
+
+    if (!totals[username]) {
+      totals[username] = 0
     }
 
-    setRanking(data || [])
-    setLoading(false)
-  }
+    totals[username] += prediction.points || 0
+  })
+
+  const rankingArray = Object.entries(totals)
+    .map(([username, points]) => ({
+      id: username,
+      username,
+      points
+    }))
+    .sort((a, b) => b.points - a.points)
+
+  setRanking(rankingArray)
+  setLoading(false)
+}
 
   if (loading) {
 
