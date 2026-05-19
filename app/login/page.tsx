@@ -98,19 +98,21 @@ export default function Login() {
           </label>
 
           <input
-            type="text"
-            placeholder="nombre"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={{
-              width: '100%',
-              padding: 14,
-              borderRadius: 10,
-              border: '1px solid #cbd5e1',
-              fontSize: 15,
-              outline: 'none'
-            }}
-          />
+  type="text"
+  placeholder="nombre"
+  value={username}
+  onChange={(e) => setUsername(e.target.value)}
+  style={{
+    width: '100%',
+    padding: 14,
+    borderRadius: 10,
+    border: '1px solid #cbd5e1',
+    fontSize: 15,
+    outline: 'none',
+    color: '#0f172a',
+    background: 'white'
+  }}
+/>
         </div>
 
         <div>
@@ -126,19 +128,21 @@ export default function Login() {
           </label>
 
           <input
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: '100%',
-              padding: 14,
-              borderRadius: 10,
-              border: '1px solid #cbd5e1',
-              fontSize: 15,
-              outline: 'none'
-            }}
-          />
+  type="password"
+  placeholder="********"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  style={{
+    width: '100%',
+    padding: 14,
+    borderRadius: 10,
+    border: '1px solid #cbd5e1',
+    fontSize: 15,
+    outline: 'none',
+    color: '#0f172a',
+    background: 'white'
+  }}
+/>
         </div>
 
         <button
@@ -159,6 +163,22 @@ export default function Login() {
         >
           {loading ? 'Ingresando...' : 'Entrar'}
         </button>
+
+        <button
+  onClick={() => router.push('/register')}
+  style={{
+    background: '#16a34a',
+    color: 'white',
+    border: 'none',
+    padding: 15,
+    borderRadius: 12,
+    fontSize: 16,
+    fontWeight: 'bold',
+    cursor: 'pointer'
+  }}
+>
+  Crear cuenta
+</button>
 
         <p
           style={{
