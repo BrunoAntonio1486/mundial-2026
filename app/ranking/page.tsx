@@ -26,12 +26,7 @@ export default function RankingPage() {
 
     const { data, error } = await supabase
       .from('predictions')
-      .select(`
-        points,
-        profiles (
-          username
-        )
-      `)
+      .select('username, points')
 
     if (error) {
       alert(error.message)
@@ -43,8 +38,10 @@ export default function RankingPage() {
 
     data?.forEach((prediction: any) => {
 
+      if (!prediction.username) return
+
       const username =
-        prediction.profiles?.username || 'Usuario'
+        prediction.username
 
       const points =
         Number(prediction.points) || 0
@@ -106,8 +103,6 @@ export default function RankingPage() {
           margin: '0 auto'
         }}
       >
-
-        {/* MENU */}
 
         <div
           style={{
@@ -182,25 +177,9 @@ export default function RankingPage() {
               ⚽ Pronósticos
             </Link>
 
-            <Link
-              href="/ranking"
-              style={{
-                textDecoration: 'none',
-                background: '#f59e0b',
-                color: 'white',
-                padding: '10px 16px',
-                borderRadius: 10,
-                fontWeight: 'bold'
-              }}
-            >
-              🏆 Ranking
-            </Link>
-
           </div>
 
         </div>
-
-        {/* TABLA */}
 
         <div
           style={{
@@ -211,107 +190,75 @@ export default function RankingPage() {
         >
 
           {
-            ranking.map((user, index) => {
+            ranking.map((user, index) => (
 
-              const isTop1 = index === 0
-              const isTop2 = index === 1
-              const isTop3 = index === 2
-
-              return (
+              <div
+                key={user.id}
+                style={{
+                  background: 'white',
+                  borderRadius: 20,
+                  padding: 24,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  boxShadow:
+                    '0 10px 25px rgba(0,0,0,0.2)'
+                }}
+              >
 
                 <div
-                  key={user.id}
                   style={{
-                    background: 'white',
-                    borderRadius: 20,
-                    padding: 24,
                     display: 'flex',
-                    justifyContent: 'space-between',
                     alignItems: 'center',
-                    boxShadow:
-                      '0 10px 25px rgba(0,0,0,0.2)',
-                    border:
-                      isTop1
-                        ? '3px solid gold'
-                        : isTop2
-                        ? '3px solid silver'
-                        : isTop3
-                        ? '3px solid #cd7f32'
-                        : 'none'
+                    gap: 18
                   }}
                 >
 
                   <div
                     style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: '50%',
+                      background: '#2563eb',
+                      color: 'white',
                       display: 'flex',
+                      justifyContent: 'center',
                       alignItems: 'center',
-                      gap: 18
+                      fontWeight: 'bold',
+                      fontSize: 22
                     }}
                   >
+                    {index + 1}
+                  </div>
+
+                  <div>
 
                     <div
                       style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: '50%',
-                        background: '#2563eb',
-                        color: 'white',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                        fontSize: 22,
                         fontWeight: 'bold',
-                        fontSize: 22
+                        color: '#0f172a'
                       }}
                     >
-                      {index + 1}
+                      {user.username}
                     </div>
 
-                    <div>
-
-                      <div
-                        style={{
-                          fontSize: 22,
-                          fontWeight: 'bold',
-                          color: '#0f172a'
-                        }}
-                      >
-                        {user.username}
-                      </div>
-
-                      <div
-                        style={{
-                          color: '#64748b',
-                          marginTop: 4
-                        }}
-                      >
-                        Participante
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize: 32,
-                      fontWeight: 'bold',
-                      color: '#16a34a'
-                    }}
-                  >
-                    {user.points}
-                    <span
-                      style={{
-                        fontSize: 18,
-                        marginLeft: 6
-                      }}
-                    >
-                      pts
-                    </span>
                   </div>
 
                 </div>
-              )
-            })
+
+                <div
+                  style={{
+                    fontSize: 32,
+                    fontWeight: 'bold',
+                    color: '#16a34a'
+                  }}
+                >
+                  {user.points} pts
+                </div>
+
+              </div>
+            ))
           }
 
         </div>
