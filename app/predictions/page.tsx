@@ -19,13 +19,13 @@ const isMatchLocked = (matchDate: string) => {
   if (day >= 11 && day <= 17) {
 
     lockDate = new Date(
-  2026,
-  4,
-  19,
-  0,
-  0,
-  0
-)
+      2026,
+      5,
+      11,
+      0,
+      0,
+      0
+    )
   }
 
   // FASE 2
