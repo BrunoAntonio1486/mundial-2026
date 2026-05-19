@@ -5,13 +5,25 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import LogoutButton from '../components/LogoutButton'
 
-const predictionDeadline =
-  new Date('2026-05-19T00:00:00')
+const isMatchLocked = (matchDate: string) => {
+
+  const now = new Date()
+
+  const date = new Date(matchDate)
+
+  const lockDate = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    0,
+    0,
+    0
+  )
+
+  return now >= lockDate
+}
 
 export default function PredictionsPage() {
-
-  const isLocked =
-  new Date() >= predictionDeadline
 
   const [matches, setMatches] = useState<any[]>([])
   const [username, setUsername] = useState('')
@@ -389,25 +401,34 @@ export default function PredictionsPage() {
       [match.id]: true
     })
   }
-  disabled={isLocked}
+  disabled={
+    isMatchLocked(match.match_date)
+  }
   style={{
-    background: isLocked
-      ? '#64748b'
-      : '#f59e0b',
+    background:
+      isMatchLocked(match.match_date)
+        ? '#64748b'
+        : '#f59e0b',
     color: 'white',
     border: 'none',
     padding: '12px 18px',
     borderRadius: 10,
     fontWeight: 'bold',
-    cursor: isLocked
-      ? 'not-allowed'
-      : 'pointer',
-    opacity: isLocked ? 0.7 : 1
+    cursor:
+      isMatchLocked(match.match_date)
+        ? 'not-allowed'
+        : 'pointer',
+    opacity:
+      isMatchLocked(match.match_date)
+        ? 0.7
+        : 1
   }}
 >
-  {isLocked
-    ? 'Predicción cerrada'
-    : 'Modificar'}
+  {
+    isMatchLocked(match.match_date)
+      ? 'Predicción cerrada'
+      : 'Modificar'
+  }
 </button>
 
                 )}
@@ -418,25 +439,35 @@ export default function PredictionsPage() {
   onClick={() =>
     savePrediction(match.id)
   }
-  disabled={loading || isLocked}
+  disabled={
+    loading ||
+    isMatchLocked(match.match_date)
+  }
   style={{
-    background: isLocked
-      ? '#64748b'
-      : '#2563eb',
+    background:
+      isMatchLocked(match.match_date)
+        ? '#64748b'
+        : '#2563eb',
     color: 'white',
     border: 'none',
     padding: '12px 18px',
     borderRadius: 10,
     fontWeight: 'bold',
-    cursor: isLocked
-      ? 'not-allowed'
-      : 'pointer',
-    opacity: isLocked ? 0.7 : 1
+    cursor:
+      isMatchLocked(match.match_date)
+        ? 'not-allowed'
+        : 'pointer',
+    opacity:
+      isMatchLocked(match.match_date)
+        ? 0.7
+        : 1
   }}
 >
-  {isLocked
-    ? 'Predicción cerrada'
-    : 'Guardar'}
+  {
+    isMatchLocked(match.match_date)
+      ? 'Predicción cerrada'
+      : 'Guardar'
+  }
 </button>
 
                 )}
