@@ -24,42 +24,45 @@ export default function RankingPage() {
 
   const fetchRanking = async () => {
 
-const fetchRanking = async () => {
+    const { data, error } = await supabase
+      .from('predictions')
+      .select('points, username')
 
-  const { data, error } = await supabase
-    .from('predictions')
-    .select('points, username')
-
-  if (error) {
-    alert(error.message)
-    setLoading(false)
-    return
-  }
-
-  const totals: Record<string, number> = {}
-
-  data?.forEach((prediction) => {
-
-    const username = prediction.username || 'Usuario'
-
-    if (!totals[username]) {
-      totals[username] = 0
+    if (error) {
+      alert(error.message)
+      setLoading(false)
+      return
     }
 
-    totals[username] += prediction.points || 0
-  })
+    const totals: Record<string, number> = {}
 
-  const rankingArray = Object.entries(totals)
-    .map(([username, points]) => ({
-      id: username,
-      username,
-      points
-    }))
-    .sort((a, b) => b.points - a.points)
+    data?.forEach((prediction) => {
 
-  setRanking(rankingArray)
-  setLoading(false)
-}
+      const username =
+        prediction.username || 'Usuario'
+
+      const points =
+        Number(prediction.points) || 0
+
+      if (!totals[username]) {
+        totals[username] = 0
+      }
+
+      totals[username] += points
+    })
+
+    const rankingArray =
+      Object.entries(totals)
+        .map(([username, points]) => ({
+          id: username,
+          username,
+          points
+        }))
+        .sort((a, b) => b.points - a.points)
+
+    setRanking(rankingArray)
+    setLoading(false)
+  }
 
   if (loading) {
 
