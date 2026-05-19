@@ -18,7 +18,6 @@ export default function Register() {
 
     setLoading(true)
 
-    // email interno ficticio
     const email =
       `${username}@mundial2026.com`
 
@@ -45,7 +44,8 @@ export default function Register() {
           .from('profiles')
           .insert({
             id: user.id,
-            username
+            username,
+            points: 0
           })
 
       if (profileError) {
@@ -137,7 +137,9 @@ export default function Register() {
               borderRadius: 10,
               border: '1px solid #cbd5e1',
               fontSize: 15,
-              outline: 'none'
+              outline: 'none',
+              color: '#0f172a',
+              background: 'white'
             }}
           />
 
@@ -167,7 +169,9 @@ export default function Register() {
               borderRadius: 10,
               border: '1px solid #cbd5e1',
               fontSize: 15,
-              outline: 'none'
+              outline: 'none',
+              color: '#0f172a',
+              background: 'white'
             }}
           />
 
@@ -191,6 +195,22 @@ export default function Register() {
           {loading
             ? 'Creando cuenta...'
             : 'Registrarse'}
+        </button>
+
+        <button
+          onClick={() => router.push('/login')}
+          style={{
+            background: '#2563eb',
+            color: 'white',
+            border: 'none',
+            padding: 15,
+            borderRadius: 12,
+            fontSize: 16,
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}
+        >
+          Volver al Login
         </button>
 
         <p
