@@ -11,14 +11,53 @@ const isMatchLocked = (matchDate: string) => {
 
   const date = new Date(matchDate)
 
-  const lockDate = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    0,
-    0,
-    0
-  )
+  const day = date.getDate()
+
+  let lockDate
+
+  // FASE 1
+  if (day >= 11 && day <= 17) {
+
+    lockDate = new Date(
+  2026,
+  4,
+  19,
+  0,
+  0,
+  0
+)
+  }
+
+  // FASE 2
+  else if (day >= 18 && day <= 23) {
+
+    lockDate = new Date(
+      2026,
+      5,
+      18,
+      0,
+      0,
+      0
+    )
+  }
+
+  // FASE 3
+  else if (day >= 24 && day <= 27) {
+
+    lockDate = new Date(
+      2026,
+      5,
+      24,
+      0,
+      0,
+      0
+    )
+  }
+
+  else {
+
+    return false
+  }
 
   return now >= lockDate
 }
