@@ -11,6 +11,8 @@ export default function Register() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] =
+  useState(false)
 
   const register = async () => {
 
@@ -18,8 +20,13 @@ export default function Register() {
 
     setLoading(true)
 
+    const cleanUsername =
+    username
+    .trim()
+    .replace(/\s+/g, '')
+
     const email =
-      `${username}@mundial2026.com`
+    `${cleanUsername}@mundial2026.com`
 
     const {
       data,
@@ -158,22 +165,59 @@ export default function Register() {
             Contraseña
           </label>
 
-          <input
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: '100%',
-              padding: 14,
-              borderRadius: 10,
-              border: '1px solid #cbd5e1',
-              fontSize: 15,
-              outline: 'none',
-              color: '#0f172a',
-              background: 'white'
-            }}
-          />
+          <div
+  style={{
+    position: 'relative'
+  }}
+>
+
+  <input
+    type={
+      showPassword
+        ? 'text'
+        : 'password'
+    }
+    placeholder="********"
+    value={password}
+    onChange={(e) =>
+      setPassword(e.target.value)
+    }
+    style={{
+      width: '100%',
+      padding: 14,
+      paddingRight: 50,
+      borderRadius: 10,
+      border: '1px solid #cbd5e1',
+      fontSize: 15,
+      outline: 'none',
+      color: '#0f172a'
+    }}
+  />
+
+  <button
+    type="button"
+    onClick={() =>
+      setShowPassword(!showPassword)
+    }
+    style={{
+      position: 'absolute',
+      right: 12,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      border: 'none',
+      background: 'transparent',
+      cursor: 'pointer',
+      fontSize: 18
+    }}
+  >
+    {
+      showPassword
+        ? '🙈'
+        : '👁️'
+    }
+  </button>
+
+</div>
 
         </div>
 
