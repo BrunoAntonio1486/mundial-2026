@@ -22,7 +22,7 @@ const isMatchLocked = (matchDate: string) => {
       2026,
       5,
       11,
-      0,
+      12,
       0,
       0
     )
@@ -35,7 +35,7 @@ const isMatchLocked = (matchDate: string) => {
       2026,
       5,
       18,
-      0,
+      10,
       0,
       0
     )
@@ -48,7 +48,7 @@ const isMatchLocked = (matchDate: string) => {
       2026,
       5,
       24,
-      0,
+      12,
       0,
       0
     )
