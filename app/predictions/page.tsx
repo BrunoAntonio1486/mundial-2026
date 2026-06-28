@@ -330,6 +330,23 @@ export default function PredictionsPage() {
                   '0 5px 15px rgba(0,0,0,0.15)'
               }}
             >
+              <p
+  style={{
+    color: '#2563eb',
+    fontWeight: 'bold',
+    marginBottom: 8,
+    fontSize: 14,
+    textTransform: 'uppercase'
+  }}
+>
+  {match.stage === 'GROUP' && '⚽ FASE DE GRUPOS'}
+  {match.stage === 'ROUND_OF_32' && '🏆 DIECISEISAVOS DE FINAL'}
+  {match.stage === 'ROUND_OF_16' && '🏆 OCTAVOS DE FINAL'}
+  {match.stage === 'QUARTER_FINAL' && '🏆 CUARTOS DE FINAL'}
+  {match.stage === 'SEMI_FINAL' && '🏆 SEMIFINALES'}
+  {match.stage === 'THIRD_PLACE' && '🥉 PARTIDO POR EL TERCER PUESTO'}
+  {match.stage === 'FINAL' && '🏆 FINAL'}
+</p>
 
               <h2
                   style={{
