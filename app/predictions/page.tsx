@@ -70,6 +70,7 @@ export default function PredictionsPage() {
   const [loading, setLoading] = useState(false)
   const [editMode, setEditMode] = useState<any>({})
   const [savedPredictions, setSavedPredictions] = useState<any>({})
+  const [showGroups, setShowGroups] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -306,7 +307,40 @@ export default function PredictionsPage() {
 
         {/* PARTIDOS */}
 
-        {matches.map((match) => {
+        {/* BOTÓN FASE DE GRUPOS */}
+
+<div
+  onClick={() => setShowGroups(!showGroups)}
+  style={{
+    background: '#1e293b',
+    color: 'white',
+    padding: '15px 20px',
+    borderRadius: 12,
+    marginBottom: 20,
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: 18,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }}
+>
+  <span>
+  ⚽ FASE DE GRUPOS (
+  {matches.filter(m => m.stage === 'GROUP').length}
+  {' '}partidos)
+</span>
+  <span>{showGroups ? '▼' : '▶'}</span>
+</div>
+
+        {matches
+  .filter((match) => {
+    if (match.stage === 'GROUP') {
+      return showGroups
+    }
+    return true
+  })
+  .map((match) => {
 
           const locked =
             new Date(match.match_date) < new Date()
