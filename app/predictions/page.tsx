@@ -71,6 +71,7 @@ export default function PredictionsPage() {
   const [editMode, setEditMode] = useState<any>({})
   const [savedPredictions, setSavedPredictions] = useState<any>({})
   const [showGroups, setShowGroups] = useState(false)
+  const [showRound32, setShowRound32] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -325,21 +326,50 @@ export default function PredictionsPage() {
     alignItems: 'center'
   }}
 >
+  <div
+  onClick={() => setShowRound32(!showRound32)}
+  style={{
+    background: '#1e293b',
+    color: 'white',
+    padding: '15px 20px',
+    borderRadius: 12,
+    marginBottom: 20,
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: 18,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }}
+>
+  <span>
+    🏆 DIECISEISAVOS DE FINAL (
+    {matches.filter(m => m.stage === 'ROUND_OF_32').length}
+    {' '}partidos)
+  </span>
+
+  <span>{showRound32 ? '▼' : '▶'}</span>
+</div>
   <span>
   ⚽ FASE DE GRUPOS (
   {matches.filter(m => m.stage === 'GROUP').length}
   {' '}partidos)
-</span>
+  </span>
   <span>{showGroups ? '▼' : '▶'}</span>
 </div>
 
         {matches
   .filter((match) => {
-    if (match.stage === 'GROUP') {
-      return showGroups
-    }
-    return true
-  })
+  if (match.stage === 'GROUP') {
+    return showGroups
+  }
+
+  if (match.stage === 'ROUND_OF_32') {
+    return showRound32
+  }
+
+  return true
+})
   .map((match) => {
 
           const locked =
