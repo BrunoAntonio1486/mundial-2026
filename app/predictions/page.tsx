@@ -310,311 +310,315 @@ export default function PredictionsPage() {
 
         {/* BOTÓN FASE DE GRUPOS */}
 
-<div
-  onClick={() => setShowGroups(!showGroups)}
-  style={{
-    background: '#1e293b',
-    color: 'white',
-    padding: '15px 20px',
-    borderRadius: 12,
-    marginBottom: 20,
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    fontSize: 18,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  }}
->
-  <div
-  onClick={() => setShowRound32(!showRound32)}
-  style={{
-    background: '#1e293b',
-    color: 'white',
-    padding: '15px 20px',
-    borderRadius: 12,
-    marginBottom: 20,
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    fontSize: 18,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  }}
->
-  <span>
-    🏆 DIECISEISAVOS DE FINAL (
-    {matches.filter(m => m.stage === 'ROUND_OF_32').length}
-    {' '}partidos)
-  </span>
+        <div
+          onClick={() => setShowGroups(!showGroups)}
+          style={{
+            background: '#1e293b',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: 12,
+            marginBottom: 20,
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: 18,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <span>
+            ⚽ FASE DE GRUPOS (
+            {matches.filter(m => m.stage === 'GROUP').length}
+            {' '}partidos)
+          </span>
 
-  <span>{showRound32 ? '▼' : '▶'}</span>
-</div>
-  <span>
-  ⚽ FASE DE GRUPOS (
-  {matches.filter(m => m.stage === 'GROUP').length}
-  {' '}partidos)
-  </span>
-  <span>{showGroups ? '▼' : '▶'}</span>
-</div>
+          <span>{showGroups ? '▼' : '▶'}</span>
+        </div>
+
+        {/* BOTÓN DIECISEISAVOS */}
+
+        <div
+          onClick={() => setShowRound32(!showRound32)}
+          style={{
+            background: '#1e293b',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: 12,
+            marginBottom: 20,
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: 18,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <span>
+            🏆 DIECISEISAVOS DE FINAL (
+            {matches.filter(m => m.stage === 'ROUND_OF_32').length}
+            {' '}partidos)
+          </span>
+
+          <span>{showRound32 ? '▼' : '▶'}</span>
+        </div>
 
         {matches
-  .filter((match) => {
-  if (match.stage === 'GROUP') {
-    return showGroups
-  }
+          .filter((match) => {
+            if (match.stage === 'GROUP') {
+              return showGroups
+            }
 
-  if (match.stage === 'ROUND_OF_32') {
-    return showRound32
-  }
+            if (match.stage === 'ROUND_OF_32') {
+              return showRound32
+            }
 
-  return true
-})
-  .map((match) => {
+            return true
+          })
+          .map((match) => {
 
-          const locked =
-            new Date(match.match_date) < new Date()
+            const locked =
+              new Date(match.match_date) < new Date()
 
-          const hasPrediction =
-            savedPredictions[match.id]?.home !== undefined
+            const hasPrediction =
+              savedPredictions[match.id]?.home !== undefined
 
-          const editable =
-            editMode[match.id] || !hasPrediction
+            const editable =
+              editMode[match.id] || !hasPrediction
 
-          return (
-
-            <div
-              key={match.id}
-              style={{
-                background: 'white',
-                padding: 25,
-                borderRadius: 20,
-                marginBottom: 20,
-                boxShadow:
-                  '0 5px 15px rgba(0,0,0,0.15)'
-              }}
-            >
-              <p
-  style={{
-    color: '#2563eb',
-    fontWeight: 'bold',
-    marginBottom: 8,
-    fontSize: 14,
-    textTransform: 'uppercase'
-  }}
->
-  {match.stage === 'GROUP' && '⚽ FASE DE GRUPOS'}
-  {match.stage === 'ROUND_OF_32' && '🏆 DIECISEISAVOS DE FINAL'}
-  {match.stage === 'ROUND_OF_16' && '🏆 OCTAVOS DE FINAL'}
-  {match.stage === 'QUARTER_FINAL' && '🏆 CUARTOS DE FINAL'}
-  {match.stage === 'SEMI_FINAL' && '🏆 SEMIFINALES'}
-  {match.stage === 'THIRD_PLACE' && '🥉 PARTIDO POR EL TERCER PUESTO'}
-  {match.stage === 'FINAL' && '🏆 FINAL'}
-</p>
-
-              <h2
-                  style={{
-                  marginBottom: 10,
-                  color: '#000',
-                  fontWeight: 'bold'
-                  }}
-              >
-                {match.team_home} vs {match.team_away}
-              </h2>
-
-              <p style={{ color: '#64748b' }}>
-                {
-                  new Date(match.match_date)
-                    .toLocaleString('es-PE')
-                }
-              </p>
+            return (
 
               <div
+                key={match.id}
                 style={{
-                  display: 'flex',
-                  gap: 10,
-                  marginTop: 20,
-                  alignItems: 'center',
-                  flexWrap: 'wrap'
+                  background: 'white',
+                  padding: 25,
+                  borderRadius: 20,
+                  marginBottom: 20,
+                  boxShadow:
+                    '0 5px 15px rgba(0,0,0,0.15)'
                 }}
               >
-
-                <input
-                  type="number"
-                  min={0}
-                  value={
-                    predictions[match.id]?.home ?? ''
-                  }
-                  disabled={locked || !editable}
-                  placeholder="0"
+                <p
                   style={{
-                     width: 70,
-                     padding: 10,
-                     borderRadius: 10,
-                     border: '1px solid #cbd5e1',
-                     fontSize: 18,
-                     textAlign: 'center',
-                     color: '#000',
-                     background: 'white',
-                     fontWeight: 'bold',
-                     WebkitTextFillColor: '#000',
-                     opacity: 1
+                    color: '#2563eb',
+                    fontWeight: 'bold',
+                    marginBottom: 8,
+                    fontSize: 14,
+                    textTransform: 'uppercase'
                   }}
-                  onChange={(e) =>
-                    setPredictions({
-                      ...predictions,
-                      [match.id]: {
-                        ...predictions[match.id],
-                        home: e.target.value
-                      }
-                    })
-                  }
-                />
+                >
+                  {match.stage === 'GROUP' && '⚽ FASE DE GRUPOS'}
+                  {match.stage === 'ROUND_OF_32' && '🏆 DIECISEISAVOS DE FINAL'}
+                  {match.stage === 'ROUND_OF_16' && '🏆 OCTAVOS DE FINAL'}
+                  {match.stage === 'QUARTER_FINAL' && '🏆 CUARTOS DE FINAL'}
+                  {match.stage === 'SEMI_FINAL' && '🏆 SEMIFINALES'}
+                  {match.stage === 'THIRD_PLACE' && '🥉 PARTIDO POR EL TERCER PUESTO'}
+                  {match.stage === 'FINAL' && '🏆 FINAL'}
+                </p>
 
-                <span
+                <h2
                   style={{
-                    fontSize: 22,
+                    marginBottom: 10,
+                    color: '#000',
                     fontWeight: 'bold'
                   }}
                 >
-                  -
-                </span>
+                  {match.team_home} vs {match.team_away}
+                </h2>
 
-                <input
-                  type="number"
-                  min={0}
-                  value={
-                    predictions[match.id]?.away ?? ''
+                <p style={{ color: '#64748b' }}>
+                  {
+                    new Date(match.match_date)
+                      .toLocaleString('es-PE')
                   }
-                  disabled={locked || !editable}
-                  placeholder="0"
+                </p>
+
+                <div
                   style={{
-                     width: 70,
-                     padding: 10,
-                     borderRadius: 10,
-                     border: '1px solid #cbd5e1',
-                     fontSize: 18,
-                     textAlign: 'center',
-                     color: '#000',
-                     background: 'white',
-                     fontWeight: 'bold',
-                     WebkitTextFillColor: '#000',
-                     opacity: 1
+                    display: 'flex',
+                    gap: 10,
+                    marginTop: 20,
+                    alignItems: 'center',
+                    flexWrap: 'wrap'
                   }}
-                  onChange={(e) =>
-                    setPredictions({
-                      ...predictions,
-                      [match.id]: {
-                        ...predictions[match.id],
-                        away: e.target.value
-                      }
-                    })
-                  }
-                />
+                >
 
-                {!locked && !editable && (
-
-                  <button
-  onClick={() =>
-    setEditMode({
-      ...editMode,
-      [match.id]: true
-    })
-  }
-  disabled={
-    isMatchLocked(match.match_date)
-  }
-  style={{
-    background:
-      isMatchLocked(match.match_date)
-        ? '#64748b'
-        : '#f59e0b',
-    color: 'white',
-    border: 'none',
-    padding: '12px 18px',
-    borderRadius: 10,
-    fontWeight: 'bold',
-    cursor:
-      isMatchLocked(match.match_date)
-        ? 'not-allowed'
-        : 'pointer',
-    opacity:
-      isMatchLocked(match.match_date)
-        ? 0.7
-        : 1
-  }}
->
-  {
-    isMatchLocked(match.match_date)
-      ? 'Predicción cerrada'
-      : 'Modificar'
-  }
-</button>
-
-                )}
-
-                {!locked && editable && (
-
-                  <button
-  onClick={() =>
-    savePrediction(match.id)
-  }
-  disabled={
-    loading ||
-    isMatchLocked(match.match_date)
-  }
-  style={{
-    background:
-      isMatchLocked(match.match_date)
-        ? '#64748b'
-        : '#2563eb',
-    color: 'white',
-    border: 'none',
-    padding: '12px 18px',
-    borderRadius: 10,
-    fontWeight: 'bold',
-    cursor:
-      isMatchLocked(match.match_date)
-        ? 'not-allowed'
-        : 'pointer',
-    opacity:
-      isMatchLocked(match.match_date)
-        ? 0.7
-        : 1
-  }}
->
-  {
-    isMatchLocked(match.match_date)
-      ? 'Predicción cerrada'
-      : 'Guardar'
-  }
-</button>
-
-                )}
-
-                {locked && (
-
-                  <button
-                    disabled
+                  <input
+                    type="number"
+                    min={0}
+                    value={
+                      predictions[match.id]?.home ?? ''
+                    }
+                    disabled={locked || !editable}
+                    placeholder="0"
                     style={{
-                      background: '#94a3b8',
-                      color: 'white',
-                      border: 'none',
-                      padding: '12px 18px',
+                      width: 70,
+                      padding: 10,
                       borderRadius: 10,
+                      border: '1px solid #cbd5e1',
+                      fontSize: 18,
+                      textAlign: 'center',
+                      color: '#000',
+                      background: 'white',
+                      fontWeight: 'bold',
+                      WebkitTextFillColor: '#000',
+                      opacity: 1
+                    }}
+                    onChange={(e) =>
+                      setPredictions({
+                        ...predictions,
+                        [match.id]: {
+                          ...predictions[match.id],
+                          home: e.target.value
+                        }
+                      })
+                    }
+                  />
+
+                  <span
+                    style={{
+                      fontSize: 22,
                       fontWeight: 'bold'
                     }}
                   >
-                    Cerrado
-                  </button>
+                    -
+                  </span>
 
-                )}
+                  <input
+                    type="number"
+                    min={0}
+                    value={
+                      predictions[match.id]?.away ?? ''
+                    }
+                    disabled={locked || !editable}
+                    placeholder="0"
+                    style={{
+                      width: 70,
+                      padding: 10,
+                      borderRadius: 10,
+                      border: '1px solid #cbd5e1',
+                      fontSize: 18,
+                      textAlign: 'center',
+                      color: '#000',
+                      background: 'white',
+                      fontWeight: 'bold',
+                      WebkitTextFillColor: '#000',
+                      opacity: 1
+                    }}
+                    onChange={(e) =>
+                      setPredictions({
+                        ...predictions,
+                        [match.id]: {
+                          ...predictions[match.id],
+                          away: e.target.value
+                        }
+                      })
+                    }
+                  />
+
+                  {!locked && !editable && (
+
+                    <button
+                      onClick={() =>
+                        setEditMode({
+                          ...editMode,
+                          [match.id]: true
+                        })
+                      }
+                      disabled={
+                        isMatchLocked(match.match_date)
+                      }
+                      style={{
+                        background:
+                          isMatchLocked(match.match_date)
+                            ? '#64748b'
+                            : '#f59e0b',
+                        color: 'white',
+                        border: 'none',
+                        padding: '12px 18px',
+                        borderRadius: 10,
+                        fontWeight: 'bold',
+                        cursor:
+                          isMatchLocked(match.match_date)
+                            ? 'not-allowed'
+                            : 'pointer',
+                        opacity:
+                          isMatchLocked(match.match_date)
+                            ? 0.7
+                            : 1
+                      }}
+                    >
+                      {
+                        isMatchLocked(match.match_date)
+                          ? 'Predicción cerrada'
+                          : 'Modificar'
+                      }
+                    </button>
+
+                  )}
+
+                  {!locked && editable && (
+
+                    <button
+                      onClick={() =>
+                        savePrediction(match.id)
+                      }
+                      disabled={
+                        loading ||
+                        isMatchLocked(match.match_date)
+                      }
+                      style={{
+                        background:
+                          isMatchLocked(match.match_date)
+                            ? '#64748b'
+                            : '#2563eb',
+                        color: 'white',
+                        border: 'none',
+                        padding: '12px 18px',
+                        borderRadius: 10,
+                        fontWeight: 'bold',
+                        cursor:
+                          isMatchLocked(match.match_date)
+                            ? 'not-allowed'
+                            : 'pointer',
+                        opacity:
+                          isMatchLocked(match.match_date)
+                            ? 0.7
+                            : 1
+                      }}
+                    >
+                      {
+                        isMatchLocked(match.match_date)
+                          ? 'Predicción cerrada'
+                          : 'Guardar'
+                      }
+                    </button>
+
+                  )}
+
+                  {locked && (
+
+                    <button
+                      disabled
+                      style={{
+                        background: '#94a3b8',
+                        color: 'white',
+                        border: 'none',
+                        padding: '12px 18px',
+                        borderRadius: 10,
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      Cerrado
+                    </button>
+
+                  )}
+
+                </div>
 
               </div>
-
-            </div>
-          )
-        })}
+            )
+          })}
 
       </div>
 
