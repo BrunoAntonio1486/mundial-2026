@@ -12,11 +12,12 @@ const isMatchLocked = (matchDate: string) => {
   const date = new Date(matchDate)
 
   const day = date.getDate()
+  const month = date.getMonth()
 
   let lockDate
 
   // FASE 1
-  if (day >= 11 && day <= 17) {
+  if (month === 5 && day >= 11 && day <= 17) {
 
     lockDate = new Date(
       2026,
@@ -29,7 +30,7 @@ const isMatchLocked = (matchDate: string) => {
   }
 
   // FASE 2
-  else if (day >= 18 && day <= 23) {
+  else if (month === 5 && day >= 18 && day <= 23) {
 
     lockDate = new Date(
       2026,
@@ -42,7 +43,7 @@ const isMatchLocked = (matchDate: string) => {
   }
 
   // FASE 3
-  else if (day >= 24 && day <= 27) {
+  else if (month === 5 && day >= 24 && day <= 27) {
 
     lockDate = new Date(
       2026,
