@@ -376,10 +376,15 @@ export default function PredictionsPage() {
           })
           .map((match) => {
 
-            console.log(match.team_home, match.team_away, match.match_date)
+            const locked = new Date(match.match_date) <= new Date()
 
-            const locked =
-              new Date(match.match_date) < new Date()
+            console.log({
+              partido: `${match.team_home} vs ${match.team_away}`,
+              locked,
+              isMatchLocked: isMatchLocked(match.match_date),
+              ahora: new Date(),
+              partidoFecha: new Date(match.match_date),
+            })
 
             const hasPrediction =
               savedPredictions[match.id]?.home !== undefined
