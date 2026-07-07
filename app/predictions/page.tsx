@@ -376,6 +376,8 @@ export default function PredictionsPage() {
           })
           .map((match) => {
 
+            console.log(match.team_home, match.team_away, match.match_date)
+
             const locked =
               new Date(match.match_date) < new Date()
 
