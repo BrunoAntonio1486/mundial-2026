@@ -59,6 +59,12 @@ const isMatchLocked = (matchDate: string) => {
     return false
   }
 
+  console.log({
+  matchDate,
+  day,
+  lockDate
+})
+
   return now >= lockDate
 }
 
