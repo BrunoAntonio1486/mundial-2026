@@ -73,6 +73,7 @@ export default function PredictionsPage() {
   const [savedPredictions, setSavedPredictions] = useState<any>({})
   const [showGroups, setShowGroups] = useState(false)
   const [showRound32, setShowRound32] = useState(false)
+  const [showRound16, setShowRound16] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -363,6 +364,33 @@ export default function PredictionsPage() {
           <span>{showRound32 ? '▼' : '▶'}</span>
         </div>
 
+        {/* BOTÓN OCTAVOS */}
+
+        <div
+          onClick={() => setShowRound16(!showRound16)}
+          style={{
+            background: '#1e293b',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: 12,
+            marginBottom: 20,
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: 18,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <span>
+            🏆 OCTAVOS DE FINAL (
+            {matches.filter(m => m.stage === 'ROUND_OF_16').length}
+            {' '}partidos)
+          </span>
+
+          <span>{showRound16 ? '▼' : '▶'}</span>
+        </div>
+
         {matches
           .filter((match) => {
             if (match.stage === 'GROUP') {
@@ -371,6 +399,10 @@ export default function PredictionsPage() {
 
             if (match.stage === 'ROUND_OF_32') {
               return showRound32
+            }
+
+            if (match.stage === 'ROUND_OF_16') {
+              return showRound16
             }
 
             return true
