@@ -356,7 +356,7 @@ export default function PredictionsPage() {
           }}
         >
           <span>
-            🏆 DIECISEISAVOS DE FINAL (
+            🏆 DIECISEISAVOS (
             {matches.filter(m => m.stage === 'ROUND_OF_32').length}
             {' '}partidos)
           </span>
@@ -383,7 +383,7 @@ export default function PredictionsPage() {
           }}
         >
           <span>
-            🏆 OCTAVOS DE FINAL (
+            🏆 OCTAVOS (
             {matches.filter(m => m.stage === 'ROUND_OF_16').length}
             {' '}partidos)
           </span>
