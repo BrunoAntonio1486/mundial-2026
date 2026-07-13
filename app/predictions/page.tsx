@@ -74,6 +74,7 @@ export default function PredictionsPage() {
   const [showGroups, setShowGroups] = useState(false)
   const [showRound32, setShowRound32] = useState(false)
   const [showRound16, setShowRound16] = useState(false)
+  const [showQuarterFinal, setShowQuarterFinal] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -356,7 +357,7 @@ export default function PredictionsPage() {
           }}
         >
           <span>
-            🏆 DIECISEISAVOS (
+            🏆 DIECISEISAVOS DE FINAL (
             {matches.filter(m => m.stage === 'ROUND_OF_32').length}
             {' '}partidos)
           </span>
@@ -383,12 +384,39 @@ export default function PredictionsPage() {
           }}
         >
           <span>
-            🏆 OCTAVOS (
+            🏆 OCTAVOS DE FINAL (
             {matches.filter(m => m.stage === 'ROUND_OF_16').length}
             {' '}partidos)
           </span>
 
           <span>{showRound16 ? '▼' : '▶'}</span>
+        </div>
+
+        {/* BOTÓN CUARTOS */}
+
+        <div
+          onClick={() => setShowQuarterFinal(!showQuarterFinal)}
+          style={{
+            background: '#1e293b',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: 12,
+            marginBottom: 20,
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: 18,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <span>
+            🏆 CUARTOS DE FINAL (
+            {matches.filter(m => m.stage === 'QUARTER_FINAL').length}
+            {' '}partidos)
+          </span>
+
+          <span>{showQuarterFinal ? '▼' : '▶'}</span>
         </div>
 
         {matches
@@ -403,6 +431,10 @@ export default function PredictionsPage() {
 
             if (match.stage === 'ROUND_OF_16') {
               return showRound16
+            }
+
+            if (match.stage === 'QUARTER_FINAL') {
+              return showQuarterFinal
             }
 
             return true
