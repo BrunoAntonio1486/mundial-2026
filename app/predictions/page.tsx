@@ -75,6 +75,7 @@ export default function PredictionsPage() {
   const [showRound32, setShowRound32] = useState(false)
   const [showRound16, setShowRound16] = useState(false)
   const [showQuarterFinal, setShowQuarterFinal] = useState(false)
+  const [showSemiFinal, setShowSemiFinal] = useState(false)
 
   useEffect(() => {
     loadMatches()
@@ -419,6 +420,33 @@ export default function PredictionsPage() {
           <span>{showQuarterFinal ? '▼' : '▶'}</span>
         </div>
 
+        {/* BOTÓN SEMIFINALES */}
+
+        <div
+          onClick={() => setShowSemiFinal(!showSemiFinal)}
+          style={{
+            background: '#1e293b',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: 12,
+            marginBottom: 20,
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: 18,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <span>
+            🏆 SEMIFINALES (
+            {matches.filter(m => m.stage === 'SEMI_FINAL').length}
+            {' '}partidos)
+          </span>
+
+          <span>{showSemiFinal ? '▼' : '▶'}</span>
+        </div>
+
         {matches
           .filter((match) => {
             if (match.stage === 'GROUP') {
@@ -437,6 +465,10 @@ export default function PredictionsPage() {
               return showQuarterFinal
             }
 
+            if (match.stage === 'SEMI_FINAL') {
+              return showSemiFinal
+            }
+            
             return true
           })
           .map((match) => {
@@ -485,7 +517,7 @@ export default function PredictionsPage() {
                   {match.stage === 'QUARTER_FINAL' && '🏆 CUARTOS DE FINAL'}
                   {match.stage === 'SEMI_FINAL' && '🏆 SEMIFINALES'}
                   {match.stage === 'THIRD_PLACE' && '🥉 PARTIDO POR EL TERCER PUESTO'}
-                  {match.stage === 'FINAL' && '🏆 FINAL'}
+                  {match.stage === 'FINAL' && '🏆 FINAL DE INFANTINO'}
                 </p>
 
                 <h2
