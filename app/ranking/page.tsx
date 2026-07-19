@@ -31,8 +31,9 @@ export default function RankingPage() {
   const fetchRanking = async () => {
 
     const { data, error } = await supabase
-      .from('predictions')
-      .select('username, points')
+      .from('profiles')
+      .select('id, username, points')
+      .order('points', { ascending: false })
 
     if (error) {
       alert(error.message)
@@ -40,33 +41,9 @@ export default function RankingPage() {
       return
     }
 
-    const totals: Record<string, number> = {}
-
-    data?.forEach((prediction: Prediction) => {
-
-      const username = prediction.username
-
-      if (!username) return
-
-      if (!totals[username]) {
-        totals[username] = 0
-      }
-
-      totals[username] +=
-        Number(prediction.points || 0)
-    })
-
-    const rankingArray: RankingUser[] =
-      Object.entries(totals)
-        .map(([username, points]) => ({
-          id: username,
-          username,
-          points
-        }))
-        .sort((a, b) => b.points - a.points)
-
-    setRanking(rankingArray)
+    setRanking(data || [])
     setLoading(false)
+
   }
 
   if (loading) {
@@ -236,10 +213,10 @@ export default function RankingPage() {
                       isTop1
                         ? '3px solid gold'
                         : isTop2
-                        ? '3px solid silver'
-                        : isTop3
-                        ? '3px solid #cd7f32'
-                        : 'none'
+                          ? '3px solid silver'
+                          : isTop3
+                            ? '3px solid #cd7f32'
+                            : 'none'
                   }}
                 >
 
