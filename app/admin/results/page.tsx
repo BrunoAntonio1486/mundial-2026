@@ -98,41 +98,42 @@ export default function AdminResults() {
     setMatches(updatedMatches)
   }
 
-const saveResult = async (
-  match: Match
-) => {
+  const saveResult = async (
+    match: Match
+  ) => {
 
-  // guardar resultado real
-  const { error } =
-    await supabase
-      .from('matches')
-      .update({
-        home_score: match.home_score,
-        away_score: match.away_score
-      })
-      .eq('id', match.id)
+    // guardar resultado real
+    const { error } =
+      await supabase
+        .from('matches')
+        .update({
+          home_score: match.home_score,
+          away_score: match.away_score,
+          finished: true
+        })
+        .eq('id', match.id)
 
-  if (error) {
-    alert(error.message)
-    return
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    // recalcular predicciones
+    const { error: rpcError } =
+      await supabase.rpc(
+        'recalculate_match_predictions',
+        {
+          p_match_id: match.id
+        }
+      )
+
+    if (rpcError) {
+      alert(rpcError.message)
+      return
+    }
+
+    alert('Resultado guardado ✅')
   }
-
-  // recalcular predicciones
-  const { error: rpcError } =
-    await supabase.rpc(
-      'recalculate_match_predictions',
-      {
-        p_match_id: match.id
-      }
-    )
-
-  if (rpcError) {
-    alert(rpcError.message)
-    return
-  }
-
-  alert('Resultado guardado ✅')
-}
 
   if (loading || !authorized) {
 
@@ -225,18 +226,18 @@ const saveResult = async (
                     )
                   }
                   style={{
-  width: 70,
-  padding: 10,
-  borderRadius: 10,
-  border: '1px solid #cbd5e1',
-  fontSize: 18,
-  textAlign: 'center',
-  color: '#000',
-  background: 'white',
-  fontWeight: 'bold',
-  WebkitTextFillColor: '#000',
-  opacity: 1
-}}
+                    width: 70,
+                    padding: 10,
+                    borderRadius: 10,
+                    border: '1px solid #cbd5e1',
+                    fontSize: 18,
+                    textAlign: 'center',
+                    color: '#000',
+                    background: 'white',
+                    fontWeight: 'bold',
+                    WebkitTextFillColor: '#000',
+                    opacity: 1
+                  }}
                 />
 
                 <span
@@ -260,18 +261,18 @@ const saveResult = async (
                     )
                   }
                   style={{
-  width: 70,
-  padding: 10,
-  borderRadius: 10,
-  border: '1px solid #cbd5e1',
-  fontSize: 18,
-  textAlign: 'center',
-  color: '#000',
-  background: 'white',
-  fontWeight: 'bold',
-  WebkitTextFillColor: '#000',
-  opacity: 1
-}}
+                    width: 70,
+                    padding: 10,
+                    borderRadius: 10,
+                    border: '1px solid #cbd5e1',
+                    fontSize: 18,
+                    textAlign: 'center',
+                    color: '#000',
+                    background: 'white',
+                    fontWeight: 'bold',
+                    WebkitTextFillColor: '#000',
+                    opacity: 1
+                  }}
                 />
 
               </div>
